@@ -7,6 +7,8 @@ import { uiActions } from './store/uiSlice';
 import {Fragment} from "react"
 import Notification from './components/UI/notification';
 
+let isInitial = true;
+
 function App() {
   const showCart = useSelector(state => state.ui.cartisVisible); //to acess state from particular slice
   const cart = useSelector(state => state.cart);
@@ -37,6 +39,11 @@ function App() {
         message:"sent the cart data sucessfully"
       }));
 
+    }
+
+    if(isInitial==true){
+      isInitial=false;
+      return;
     }
     sendData().catch(err => {
       dispatch(uiActions.setNotifications({
